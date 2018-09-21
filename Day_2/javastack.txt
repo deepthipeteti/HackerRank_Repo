@@ -1,0 +1,69 @@
+import java.util.*;
+class Solution{
+	
+	public static void main(String []argh)
+	{
+		Scanner sc = new Scanner(System.in);
+		
+        char x;
+        
+		while (sc.hasNext()) {
+            boolean status=false;
+            int flag=0;
+			String input=sc.next();
+            //Complete the code
+             Stack<Character> st = new Stack<>();
+            for (int i=0; i<input.length(); i++){
+                if((input.charAt(i)=='(')||(input.charAt(i)=='[')||(input.charAt(i)=='{')){
+                    st.push(new Character(input.charAt(i)));   
+                 
+                }
+                else if(st.empty()){
+                    status=false;
+                    flag=1;
+                    break;
+                }
+                else
+                {
+                    
+                 switch (input.charAt(i))
+                {
+                    case ')':
+                             
+                             x =  (Character)(st.peek());
+                            st.pop();
+                            if (x=='{' || x=='['){
+                                status=false;
+                                flag=1;
+                            }
+                            break;
+                    case ']':
+                           
+                            x =  (Character)(st.peek());
+                            st.pop();
+                            if (x=='{' || x=='('){
+                                flag=1;
+                                status=false;
+                            }
+                            break;
+                    case '}':
+                         
+                            x = (Character)(st.peek());
+                            st.pop();
+                            if (x=='(' || x=='['){
+                                status=false;
+                                flag=1;}
+                            break;
+                }
+                }
+		}
+		if(st.empty()&&(flag==0))
+            status=true;
+            
+        System.out.println(status);
+	}
+}
+}
+
+
+
