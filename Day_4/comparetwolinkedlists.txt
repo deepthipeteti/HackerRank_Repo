@@ -1,0 +1,243 @@
+import java.io.*;
+2
+import java.math.*;
+3
+import java.text.*;
+4
+import java.util.*;
+5
+import java.util.regex.*;
+6
+​
+7
+public class Solution {
+8
+​
+9
+    static class SinglyLinkedListNode {
+10
+        public int data;
+11
+        public SinglyLinkedListNode next;
+12
+​
+13
+        public SinglyLinkedListNode(int nodeData) {
+14
+            this.data = nodeData;
+15
+            this.next = null;
+16
+        }
+17
+    }
+18
+​
+19
+    static class SinglyLinkedList {
+20
+        public SinglyLinkedListNode head;
+21
+        public SinglyLinkedListNode tail;
+22
+​
+23
+        public SinglyLinkedList() {
+24
+            this.head = null;
+25
+            this.tail = null;
+26
+        }
+27
+​
+28
+        public void insertNode(int nodeData) {
+29
+            SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
+30
+​
+31
+            if (this.head == null) {
+32
+                this.head = node;
+33
+            } else {
+34
+                this.tail.next = node;
+35
+            }
+36
+​
+37
+            this.tail = node;
+38
+        }
+39
+    }
+40
+​
+41
+    public static void printSinglyLinkedList(SinglyLinkedListNode node, String sep, BufferedWriter bufferedWriter) throws IOException {
+42
+        while (node != null) {
+43
+            bufferedWriter.write(String.valueOf(node.data));
+44
+​
+45
+            node = node.next;
+46
+​
+47
+            if (node != null) {
+48
+                bufferedWriter.write(sep);
+49
+            }
+50
+        }
+51
+    }
+
+52
+    // Complete the compareLists function below.
+53
+​
+54
+    /*
+55
+     * For your reference:
+56
+     *
+57
+     * SinglyLinkedListNode {
+58
+     *     int data;
+59
+     *     SinglyLinkedListNode next;
+60
+     * }
+61
+     *
+62
+     */
+63
+    static boolean compareLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+64
+            SinglyLinkedListNode temp1=head1;
+65
+            SinglyLinkedListNode temp2=head2;
+66
+            boolean status=true;
+67
+            while((temp1!=null)&&(temp2!=null)){
+68
+                if(temp1.data!=temp2.data)
+69
+                            status=false;
+70
+                temp1=temp1.next;
+71
+                temp2=temp2.next;
+72
+            }
+73
+            if(!(temp1==null)&&(temp2==null))
+74
+                        status=false;
+75
+               return status;
+76
+    }
+
+77
+    private static final Scanner scanner = new Scanner(System.in);
+78
+​
+79
+    public static void main(String[] args) throws IOException {
+80
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+81
+​
+82
+        int tests = scanner.nextInt();
+83
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+84
+​
+85
+        for (int testsItr = 0; testsItr < tests; testsItr++) {
+86
+            SinglyLinkedList llist1 = new SinglyLinkedList();
+87
+​
+88
+            int llist1Count = scanner.nextInt();
+89
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+90
+​
+91
+            for (int i = 0; i < llist1Count; i++) {
+92
+                int llist1Item = scanner.nextInt();
+93
+                scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+94
+​
+95
+                llist1.insertNode(llist1Item);
+96
+            }
+97
+          
+98
+            SinglyLinkedList llist2 = new SinglyLinkedList();
+99
+​
+100
+            int llist2Count = scanner.nextInt();
+101
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+102
+​
+103
+            for (int i = 0; i < llist2Count; i++) {
+104
+                int llist2Item = scanner.nextInt();
+105
+                scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+106
+​
+107
+                llist2.insertNode(llist2Item);
+108
+            }
+109
+​
+110
+            boolean result = compareLists(llist1.head, llist2.head);
+111
+​
+112
+            bufferedWriter.write(String.valueOf(result ? 1 : 0));
+113
+            bufferedWriter.newLine();
+114
+        }
+115
+​
+116
+        bufferedWriter.close();
+117
+​
+118
+        scanner.close();
+119
+    }
+120
+}
+121
+​
