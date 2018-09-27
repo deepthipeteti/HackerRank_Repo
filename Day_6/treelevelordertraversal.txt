@@ -1,0 +1,31 @@
+	/* 
+    
+    class Node 
+    	int data;
+    	Node left;
+    	Node right;
+	*/
+	public static void levelOrder(Node root) {
+        ArrayList<ArrayList<Integer>> arr=new ArrayList<ArrayList<Integer>>(500);
+        for(int i=0;i<500;i++)
+        {
+            ArrayList<Integer> list1=new ArrayList<Integer>(100);
+            arr.add(list1);
+        }
+        addList(0,arr,root);
+         for (int i = 0; i < arr.size(); i++) { 
+            for (int j = 0; j < arr.get(i).size(); j++) { 
+                System.out.print(arr.get(i).get(j) + " "); 
+            } 
+            
+        } 
+      
+    }
+    public static void addList(int index,ArrayList<ArrayList<Integer>> a,Node root){
+        Node temp=root;
+        a.get(index).add(temp.data);
+        if(temp.left!=null)
+            addList(index+1,a,temp.left);
+        if(temp.right!=null)
+             addList(index+1,a,temp.right);
+    }
