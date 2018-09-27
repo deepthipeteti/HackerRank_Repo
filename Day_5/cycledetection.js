@@ -51,24 +51,37 @@ const SinglyLinkedList = class {
 };
 
 function printSinglyLinkedList(node, sep) {
-    while (node !== null) {
-        console.log(String(node.data));
+    var pos=0;
+    var temp=node;
+    while (pos<15) {
+        if(temp!=null)
+        console.log(String(temp.data));
 
-        node = node.next;
+        temp = temp.next;
 
         if (node !== null) {
            console.log(sep);
         }
+        pos++;
     }
 }
 function hasCycle(head) {
     var temp=head;
     var status=false,a=0;
-    while(temp.next!==null){
+    while((a>=0)&&(a<1000)){
+        if(temp!==null){
+            
+            a++;
+        }
+        else{
+            break;
+        }
         temp=temp.next;
-        a++;
     }
-    if((temp.data>0)&&(temp.data<a)){
+    if(temp==null){
+        status=false;
+    }
+    else{
         status=true;
     }
     return status;
@@ -91,21 +104,22 @@ function main() {
             llist.insertNode(llistItem);
         }
       
-      	var extra = new SinglyLinkedListNode(index);
+      	var extra;
         var temp = llist.head;
 
         for (var i = 0; i < llistCount; i++) {
-          	
+          	if(i==index)
+          	    extra=temp;
 
           	if (i != llistCount-1) {
             	temp = temp.next;
           	}
         }
-
-        temp.next = extra;
-
+        if(extra!=null)
+            temp.next = extra;
+       
         let result = hasCycle(llist.head);
-
+        
        console.log((result ? 1 : 0) + "\n");
     }
 
