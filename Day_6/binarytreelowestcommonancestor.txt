@@ -1,0 +1,17 @@
+	/*
+    class Node 
+    	int data;
+    	Node left;
+    	Node right;
+	*/
+	public static Node lca(Node root, int v1, int v2) {
+      	// Write your code here.
+        Node temp=root;
+        if(temp==null)
+            return null;
+        else if((temp.data>v1)&&(temp.data>v2))
+            return lca(temp.left,v1,v2);
+          else if((temp.data<v1)&&(temp.data<v2))
+            return lca(temp.right,v1,v2);
+    return temp;
+    }
