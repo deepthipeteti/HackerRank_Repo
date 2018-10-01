@@ -37,7 +37,7 @@ function equalStacks(h1, h2, h3) {
      * Write your code here.
      */
     var l1=sum(h1);
-    var p=0,q=0,r=;
+    var p=0,q=0,r=0;
     var l2=sum(h2);
     
     var l3=sum(h3);
