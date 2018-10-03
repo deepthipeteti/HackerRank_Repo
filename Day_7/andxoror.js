@@ -1,36 +1,53 @@
-import java.io.*;
-import java.math.*;
-import java.text.*;
-import java.util.*;
-import java.util.regex.*;
+'use strict';
 
-public class Solution {
+const fs = require('fs');
 
-    /*
-     * Complete the andXorOr function below.
-     */
-    static int andXorOr(int[] a) {
-        /*
-         * Write your code here.
-         */
-        int size=a.length;
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
 
-        int max=0;
-        
+let inputString = '';
+let currentLine = 0;
+
+process.stdin.on('data', inputStdin => {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', _ => {
+    inputString = inputString.trim().split('\n').map(str => str.trim());
+
+    main();
+});
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+/*
+ * Complete the andXorOr function below.
+ */
+
+
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const aCount = parseInt(readLine(), 10);
+
+    const a = readLine().split(' ').map(aTemp => parseInt(aTemp, 10));
+
+       var size=a.length;
+
+        var max=0;
+         var j=0;
+         var arr=new Array();
         while(size>=2){
 
-            for(int i=0;i<=a.length-size;i++) { 
-                int k=0;
-                int arr[]=new int[size];
-                for(int j=0;j<size;j++) {
-                    arr[k]=a[i+j];
-                    k++;
-                }
-                
-                 Arrays.sort(arr); 
-                int first=arr[0];
-                int second=arr[1]; 
-                int value=(first^second);
+            for(let i=0;i<=a.length-size;i++) {
+                arr = a.slice(i+j,i+j+size);
+
+                arr.sort();
+                var first=arr[0];
+                var second=arr[1]; 
+                var value=(first^second);
                 if(value>max) {
                     max=value;
                 }
@@ -38,30 +55,7 @@ public class Solution {
             size--;
         }
 
-    return max;
-    }
+    ws.write(max + "\n");
 
-    private static final Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-
-        int aCount = Integer.parseInt(scanner.nextLine().trim());
-
-        int[] a = new int[aCount];
-
-        String[] aItems = scanner.nextLine().split(" ");
-
-        for (int aItr = 0; aItr < aCount; aItr++) {
-            int aItem = Integer.parseInt(aItems[aItr].trim());
-            a[aItr] = aItem;
-        }
-
-        int result = andXorOr(a);
-
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
-
-        bufferedWriter.close();
-    }
+    ws.end();
 }
