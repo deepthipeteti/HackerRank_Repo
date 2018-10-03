@@ -1,83 +1,67 @@
-'use strict';
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
 
-const fs = require('fs');
+public class Solution {
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let currentLine = 0;
-
-process.stdin.on('data', inputStdin => {
-    inputString += inputStdin;
-});
-
-process.stdin.on('end', _ => {
-    inputString = inputString.trim().split('\n').map(str => str.trim());
-
-    main();
-});
-
-function readLine() {
-    return inputString[currentLine++];
-}
-
-/*
- * Complete the andXorOr function below.
- */
-function andXorOr(a) {
     /*
-     * Write your code here.
+     * Complete the andXorOr function below.
      */
-    var size=2;
-  
-    var max=0;
-    //a.sort();
-    //console.log(a);
-    while(size<=a.length){
+    static int andXorOr(int[] a) {
+        /*
+         * Write your code here.
+         */
+        int size=a.length;
+
+        int max=0;
         
-        for(let i=0;i<=a.length-size;i++) {
-            var arr=new Array();
-            for(let j=0;j<size;j++) {
-                arr.push(a[j+i]);
+        while(size>=2){
+
+            for(int i=0;i<=a.length-size;i++) { 
+                int k=0;
+                int arr[]=new int[size];
+                for(int j=0;j<size;j++) {
+                    arr[k]=a[i+j];
+                    k++;
+                }
+                
+                 Arrays.sort(arr); 
+                int first=arr[0];
+                int second=arr[1]; 
+                int value=(first^second);
+                if(value>max) {
+                    max=value;
+                }
             }
-            var value=smallest(arr);
-            if(value>max) {
-                max=value;
-            }
+            size--;
         }
-        size++;
-    }
+
     return max;
-}
-function smallest(arr) {
-    var second;
-    var first=Number.MAX_SAFE_INTEGER;
-    second=Number.MAX_SAFE_INTEGER;
-  
-    for(let i=0;i<arr.length;i++) {
-        if(arr[i]<first) {
-            second = first;
-            first = arr[i];
-        }
-        else if(arr[i] < second && arr[i]!=first)
-        second = arr[i];
     }
 
-    var value=(((first&second)^(first|second))&(first^second));
-    
-    return value;
-}
-function main() {
-    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    const aCount = parseInt(readLine(), 10);
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-    const a = readLine().split(' ').map(aTemp => parseInt(aTemp, 10));
+        int aCount = Integer.parseInt(scanner.nextLine().trim());
 
-    let result = andXorOr(a);
+        int[] a = new int[aCount];
 
-    ws.write(result + "\n");
+        String[] aItems = scanner.nextLine().split(" ");
 
-    ws.end();
+        for (int aItr = 0; aItr < aCount; aItr++) {
+            int aItem = Integer.parseInt(aItems[aItr].trim());
+            a[aItr] = aItem;
+        }
+
+        int result = andXorOr(a);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+    }
 }
