@@ -54,7 +54,7 @@ function main() {
 
     let result = runningTime(arr);
 
-    ws.write(result + "\n 
+    ws.write(result + "\n );
 
     ws.end();
 }
